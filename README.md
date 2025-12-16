@@ -26,14 +26,23 @@ An AI-powered Python library for analyzing CVs (resumes) against job description
 ```bash
 pip install cv-matcher
 
-# Set your OpenAI API key
-export OPENAI_API_KEY='your-api-key-here'
+# Create a .env file for configuration
+cp .env.example .env
+
+# Edit .env and set your preferences:
+# - USE_LOCAL_MODEL=false (use OpenAI, recommended)
+# - USE_LOCAL_MODEL=true (use local models, no API key needed)
+# - OPENAI_API_KEY=your-key-here (required if USE_LOCAL_MODEL=false)
 ```
 
-### For Local Models (Optional)
+### For Local Models Only
 
 ```bash
+# Install with local model dependencies
 pip install cv-matcher[local]
+
+# Set USE_LOCAL_MODEL=true in .env
+echo "USE_LOCAL_MODEL=true" > .env
 ```
 
 ### Using uv (recommended for development)
@@ -52,6 +61,30 @@ source .venv/bin/activate  # On Windows: .venv\Scripts\activate
 uv pip install -e .
 ```
 
+## Configuration ⚙️
+
+### Environment Variables (.env file)
+
+Create a `.env` file in your project root to configure the AI backend:
+
+```bash
+# Toggle between local and OpenAI models
+USE_LOCAL_MODEL=false  # false=OpenAI (default), true=local models
+
+# OpenAI Configuration (required if USE_LOCAL_MODEL=false)
+OPENAI_API_KEY=your-openai-api-key-here
+# OPENAI_MODEL=gpt-4o-mini  # Optional, defaults to gpt-4o-mini
+
+# Local Model Configuration (used if USE_LOCAL_MODEL=true)
+# LOCAL_MODEL_NAME=microsoft/Phi-3-mini-4k-instruct  # Optional
+```
+
+**Switching Models:**
+- Set `USE_LOCAL_MODEL=false` to use OpenAI (faster, more accurate, requires API key)
+- Set `USE_LOCAL_MODEL=true` to use local models (private, no API key, slower)
+
+The launcher script automatically reads these settings - no code changes needed!
+
 ## Quick Start 🚀
 
 ### Option 1: Web UI (Easiest! 🌐)
@@ -59,14 +92,19 @@ uv pip install -e .
 ```python
 from cv_matcher import launch_ui
 
-# Launch the web interface with OpenAI
+# Launch the web interface
+# Uses settings from .env file (USE_LOCAL_MODEL and OPENAI_API_KEY)
 launch_ui()
+```
 
-# Or use local models (slower, no API key needed)
-launch_ui(use_local_model=True)
+Or launch from command line:
+```bash
+python launch_ui.py  # Reads USE_LOCAL_MODEL from .env
 ```
 
 Then open your browser to `http://localhost:7860` and start analyzing CVs!
+
+**💡 Tip:** Toggle between OpenAI and local models by changing `USE_LOCAL_MODEL` in your `.env` file - no code changes needed!
 
 ### Option 2: Python API with OpenAI (Recommended! ⚡)
 
@@ -135,19 +173,21 @@ analysis = matcher.analyze_cv(
 )
 ```
 
-## Configuration ⚙️
+## API Configuration 🔧
 
 ### CVMatcher Parameters
 
 ```python
 CVMatcher(
-    use_local_model: bool = True,     # Use local model (no API key needed)
+    use_local_model: bool = False,    # False=OpenAI (default), True=local models
     local_model_name: str = "microsoft/Phi-3-mini-4k-instruct",
-    api_key: Optional[str] = None,    # Only for OpenAI (if use_local_model=False)
-    model: str = "gpt-4o-mini",       # OpenAI model (if use_local_model=False)
-    timeout: int = 10                 # Timeout for HTTP requests (seconds)
+    api_key: Optional[str] = None,    # OpenAI key (reads from .env if not provided)
+    model: str = "gpt-4o-mini",       # OpenAI model name
+    timeout: int = 10                 # HTTP timeout in seconds
 )
 ```
+
+**Recommended:** Use `.env` file for configuration instead of hardcoding parameters.
 
 ### Supported Local Models (No API Key Required)
 
