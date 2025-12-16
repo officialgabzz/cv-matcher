@@ -2,7 +2,6 @@
 PDF parser for extracting text from CV PDFs.
 """
 
-from typing import Optional
 import pypdf
 from pathlib import Path
 

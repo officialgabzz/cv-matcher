@@ -7,7 +7,6 @@ from pathlib import Path
 from rich.console import Console
 from rich.table import Table
 from rich.panel import Panel
-from rich import print as rprint
 
 from cv_matcher.pdf_parser import PDFParser
 from cv_matcher.job_fetcher import JobDescriptionFetcher

@@ -4,7 +4,6 @@ Launch a web interface for analyzing CVs against job descriptions.
 """
 
 import gradio as gr
-from pathlib import Path
 import json
 from cv_matcher import CVMatcher
 from cv_matcher.models import CVAnalysis

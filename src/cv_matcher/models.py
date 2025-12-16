@@ -2,7 +2,7 @@
 Data models for CV Matcher library.
 """
 
-from typing import List, Optional
+from typing import List
 from pydantic import BaseModel, Field
 
 

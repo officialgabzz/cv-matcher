@@ -4,7 +4,6 @@ Job description fetcher for retrieving job postings from URLs or text.
 
 import requests
 from bs4 import BeautifulSoup
-from typing import Optional
 import re
 
 
