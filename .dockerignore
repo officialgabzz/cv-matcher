@@ -42,8 +42,12 @@ Thumbs.db
 .gitignore
 
 # Documentation
-*.md
 docs/
+CONTRIBUTING.md
+CHANGELOG.md
+DEPLOYMENT.md
+QUICKSTART.md
+PUBLISH.md
 
 # CI/CD
 .github/
