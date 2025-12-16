@@ -242,7 +242,7 @@ Check out the [examples](examples/) directory for more detailed usage examples:
 
 ```bash
 # Clone the repository
-git clone https://github.com/yourusername/cv-matcher.git
+git clone https://github.com/officialgabzz/cv-matcher.git
 cd cv-matcher
 
 # Install with development dependencies
@@ -367,9 +367,9 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 
 ## Support 💬
 
-- 📧 Email: your.email@example.com
-- 🐛 Issues: [GitHub Issues](https://github.com/yourusername/cv-matcher/issues)
-- 💬 Discussions: [GitHub Discussions](https://github.com/yourusername/cv-matcher/discussions)
+- 📧 Email: garubamalik@gmail.com
+- 🐛 Issues: [GitHub Issues](https://github.com/officialgabzz/cv-matcher/issues)
+- 💬 Discussions: [GitHub Discussions](https://github.com/officialgabzz/cv-matcher/discussions)
 
 ## Acknowledgments 🙏
 
