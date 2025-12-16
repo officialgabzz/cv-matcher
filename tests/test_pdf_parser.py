@@ -18,9 +18,20 @@ class TestPDFParser:
 
     def test_extract_text_invalid_extension(self):
         """Test that ValueError is raised for non-PDF files."""
+        import tempfile
+
         parser = PDFParser()
-        with pytest.raises(ValueError, match="File is not a PDF"):
-            parser.extract_text("test.txt")
+        # Create a temporary non-PDF file
+        with tempfile.NamedTemporaryFile(mode="w", suffix=".txt", delete=False) as f:
+            f.write("This is not a PDF")
+            temp_path = f.name
+        try:
+            with pytest.raises(ValueError, match="File is not a PDF"):
+                parser.extract_text(temp_path)
+        finally:
+            import os
+
+            os.unlink(temp_path)
 
     def test_extract_metadata_file_not_found(self):
         """Test metadata extraction with non-existent file."""
