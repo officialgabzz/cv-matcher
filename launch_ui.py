@@ -13,7 +13,7 @@ if __name__ == "__main__":
     # Read configuration from environment variables
     use_local_model = os.getenv("USE_LOCAL_MODEL", "false").lower() == "true"
     local_model_name = os.getenv("LOCAL_MODEL_NAME", "microsoft/Phi-3-mini-4k-instruct")
-    
+
     # Launch the web interface
     # Toggle between OpenAI and local models using USE_LOCAL_MODEL in .env
     launch_ui(
