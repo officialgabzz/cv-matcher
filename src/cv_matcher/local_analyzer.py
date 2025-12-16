@@ -4,10 +4,21 @@ No API key required - runs completely locally.
 """
 
 import json
-import torch
 from typing import Optional
-from transformers import AutoTokenizer, AutoModelForCausalLM, pipeline
 from cv_matcher.models import CVAnalysis, MatchScore, FormattingAdvice
+
+# Lazy imports for optional dependencies
+try:
+    import torch
+    from transformers import AutoTokenizer, AutoModelForCausalLM, pipeline
+
+    TRANSFORMERS_AVAILABLE = True
+except ImportError:
+    TRANSFORMERS_AVAILABLE = False
+    torch = None
+    AutoTokenizer = None
+    AutoModelForCausalLM = None
+    pipeline = None
 
 
 class LocalAIAnalyzer:
@@ -27,6 +38,13 @@ class LocalAIAnalyzer:
                        Other options: "mistralai/Mistral-7B-Instruct-v0.2"
             device: Device to run model on ("cuda", "cpu", or None for auto-detect)
         """
+        if not TRANSFORMERS_AVAILABLE:
+            raise ImportError(
+                "Local model dependencies are not installed. Install them with:\n"
+                "pip install cv-matcher[local]\n"
+                "Or use OpenAI instead: CVMatcher(use_local_model=False)"
+            )
+
         self.model_name = model_name
 
         # Auto-detect device if not specified
